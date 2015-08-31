@@ -1,5 +1,8 @@
 # [Split](http://libraries.io/rubygems/split)
 
+NOTE: This is forked to read the experiment data from a cache so it doesn't take a long time to load (and time-out a server request).
+The worker to write the cache data is set up separately.
+
 Split is a rack based ab testing framework designed to work with Rails, Sinatra or any other rack based app.
 
 Split is heavily inspired by the Abingo and Vanity rails ab testing plugins and Resque in its use of Redis.
