@@ -16,28 +16,21 @@ module Split
 
     get '/' do
       puts "In split dashboard"
-      #This is updated by BEN to make this use a worker
-      if Rails.cache.exist?("split_experiments") && Rails.cache.exist?("split_metrics")
-        puts "Cache is ready, rendering page"
-        # Display experiments without a winner at the top of the dashboard
-        @experiments = Rails.cache.fetch('split_experiments')
-        @metrics = Rails.cache.fetch('split_metrics')
+      if params[:experiment].present?
+        @experiment_index = params[:experiment].to_i
       else
-        puts "Cache is NOT ready, starting worker"
-        @processing = true
-        SplitWorker.perform_async
+        @experiment_index = 0
       end
-
       ## This is the old way, but this takes too long
-      #@experiments = Split::ExperimentCatalog.all_active_first
-      #@metrics = Split::Metric.all
-
+      @experiments = Split::ExperimentCatalog.all_active_first
+      @metrics = Split::Metric.all
       # Display Rails Environment mode (or Rack version if not using Rails)
       if Object.const_defined?('Rails')
         @current_env = Rails.env.titlecase
       else
         @current_env = "Rack: #{Rack.version}"
       end
+      puts "Exiting split dashboard controller"
       erb :index
     end
 
