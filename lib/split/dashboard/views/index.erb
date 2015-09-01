@@ -1,7 +1,7 @@
 <% if @experiments.any? %>
   <p class="intro">Hai! The list below contains all the registered experiments along with the number of test participants, completed and conversion rate currently in the system.</p>
 
-  <% [@experiments[@experiment_index]].each do |experiment| %>
+  <% [@experiments[@experiment_index.to_i]].each do |experiment| %>
     <% if experiment.goals.empty? %>
       <%= erb :_experiment, :locals => {:goal => nil, :experiment => experiment} %>
     <% else %>

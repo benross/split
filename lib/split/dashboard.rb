@@ -17,7 +17,7 @@ module Split
     get '/' do
       puts "In split dashboard"
       if params[:experiment].present?
-        @experiment_index = params[:experiment].to_i
+        @experiment_index = params[:experiment]
       else
         @experiment_index = 0
       end
