@@ -15,8 +15,15 @@
 
   <h1>Experiments:</h1>
   <% @experiments.each_with_index do |experiment, index| %>
-    <a href="/split?experiment=<%=index%>"><%=experiment.name%></a><br>
+    <% unless experiment.winner.present? && experiment.winner.name.present? && !params[:show_finished] %>
+      <a href="/split?experiment=<%=index%>"><%=experiment.name%></a><br>
+    <% end %>
   <% end %>
+
+  <br>
+  <br>
+  <a href="/split?show_finished=true">Show Finished</a>
+  <a href="/split?show_finished=false">Hide Finished</a>
 
 <% else %>
   <p class="intro">No experiments have started yet, you need to define them in your code and introduce them to your users.</p>
